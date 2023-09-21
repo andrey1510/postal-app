@@ -1,0 +1,23 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5544/packinglistbase
+    username: user
+    password: password
+  jpa:
+    show-sql: true
+
+springdoc:
+  paths-to-match: /api/**
+  swagger-ui:
+    enabled: true
+    filter: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: *
