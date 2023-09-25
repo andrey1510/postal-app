@@ -1,7 +1,14 @@
 server:
-  port: 8888
+  port: 8884
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8899/eureka
 
 spring:
+  application:
+    name: packing-list-service
   datasource:
     url: jdbc:postgresql://localhost:5544/packinglistbase
     username: user
@@ -20,4 +27,4 @@ management:
     enabled-by-default: true
     web:
       exposure:
-        include: *
+        include: "*"

@@ -1,4 +1,14 @@
+server:
+  port: 8885
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8899/eureka
+
 spring:
+  application:
+    name: postal-service
   datasource:
     url: jdbc:h2:mem:postalbase
     username: sa

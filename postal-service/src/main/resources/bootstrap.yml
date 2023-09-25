@@ -1,6 +1,6 @@
 spring:
   application:
-    name: packing-list-service
+    name: postal-service
   cloud:
     config:
       uri: http://localhost:8890

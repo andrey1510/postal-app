@@ -1,0 +1,23 @@
+server:
+  port: 8890
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+#        git:
+#          uri: file:\\\C:\Users\WA\Documents\GitHub\postal-app\config-server\src\main\resources\config
+#  cloud:
+#    config:
+#      server:
+        native:
+          search-locations: classpath:/config
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8899/eureka
