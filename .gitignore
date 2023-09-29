@@ -18,3 +18,8 @@ gradle-app.setting
 .classpath
 /postal-service/.scannerwork/.sonar_lock
 /.idea/
+/postal-service/gradle/
+/config-server/gradle/
+/eureka-service/gradle/
+/gateway-service/gradle/
+/packing-list-service/gradle/
