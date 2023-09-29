@@ -22,6 +22,8 @@ repositories {
 }
 extra["springCloudVersion"] = "2022.0.4"
 
+evaluationDependsOn(":packing-list-service")
+
 dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -35,6 +37,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+    implementation(project(":packing-list-service"))
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.projectlombok:lombok")

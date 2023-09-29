@@ -1,7 +1,11 @@
 eureka:
+  server:
+    maxThreadsForPeerReplication: 0
   client:
     registerWithEureka: false
     fetchRegistry: false
+    service-url:
+      defaultZone: http://localhost:8899/eureka
 
 server:
   port: 8899

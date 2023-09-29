@@ -1,0 +1,25 @@
+server:
+  port: 8886
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8899/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: postalServiceModule
+          uri: lb://postal-service
+          predicates:
+            - Path=/postal-service/**
+        - id: packingListModule
+          uri: lb://packing-list-service
+          predicates:
+            - Path=/packing-list-service/**

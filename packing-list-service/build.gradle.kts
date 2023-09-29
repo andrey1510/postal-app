@@ -23,6 +23,8 @@ repositories {
 
 extra["springCloudVersion"] = "2022.0.4"
 
+evaluationDependsOn(":config-server")
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")

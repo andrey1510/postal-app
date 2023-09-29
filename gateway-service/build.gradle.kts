@@ -23,13 +23,11 @@ repositories {
 
 extra["springCloudVersion"] = "2022.0.4"
 
+evaluationDependsOn(":postal-service")
+
 dependencies {
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
-    implementation("org.springframework.boot:spring-boot-starter-hateoas")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-web-services")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation ("org.springframework.cloud:spring-cloud-starter-gateway")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")

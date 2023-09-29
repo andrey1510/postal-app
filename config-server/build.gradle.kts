@@ -18,6 +18,8 @@ repositories {
 
 extra["springCloudVersion"] = "2022.0.4"
 
+evaluationDependsOn(":eureka-service")
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")

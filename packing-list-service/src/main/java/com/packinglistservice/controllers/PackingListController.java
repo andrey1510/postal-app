@@ -38,6 +38,4 @@ public class PackingListController {
         return packingListService.findAllByPostalItemId(id);
     }
 
-
-
 }
