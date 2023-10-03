@@ -1,5 +1,6 @@
 server:
   port: 8884
+  forward-headers-strategy: framework   # exposes Swagger under Gateway
 
 eureka:
   client:

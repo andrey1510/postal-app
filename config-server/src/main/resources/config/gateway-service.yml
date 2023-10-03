@@ -11,15 +11,17 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      discovery:
+      discovery:    # needed for gateway if Eureka is used
         locator:
           enabled: true
+          lower-case-service-uri: true  # needed as Eureka capitalizes letters URI
+          lower-case-service-id: true
       routes:
-        - id: postalServiceModule
+        - id: postal-service
           uri: lb://postal-service
           predicates:
             - Path=/postal-service/**
-        - id: packingListModule
+        - id: packing-list-service
           uri: lb://packing-list-service
           predicates:
             - Path=/packing-list-service/**
