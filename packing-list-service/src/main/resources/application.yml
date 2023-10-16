@@ -1,9 +1,11 @@
 spring:
   application:
     name: packing-list-service
-  cloud:
-    config:
-      uri: http://localhost:8890
+  config:
+    import: optional:configserver:http://localhost:8890
+#  cloud:
+#    config:
+#      uri: http://localhost:8890
 
 management:
   endpoints:

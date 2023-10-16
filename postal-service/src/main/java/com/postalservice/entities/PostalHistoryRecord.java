@@ -47,7 +47,7 @@ public class PostalHistoryRecord {
     @Schema(requiredMode = REQUIRED, description = "Статус почтового отправления.")
     private PostalStatus postalStatus;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL)
     private PostalItem postalItem;
 
     @ManyToOne(cascade=CascadeType.ALL)

@@ -25,3 +25,7 @@ spring:
           uri: lb://packing-list-service
           predicates:
             - Path=/packing-list-service/**
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification-service/**

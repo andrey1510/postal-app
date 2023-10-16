@@ -1,0 +1,43 @@
+server:
+  port: 9099
+  forward-headers-strategy: framework   # exposes Swagger under Gateway
+
+spring:
+  application:
+    name: notification-service
+  datasource:
+    url: jdbc:postgresql://localhost:5545/updatesbase
+    username: user
+    password: password
+  jpa:
+    show-sql: true
+    console.enabled: true
+    ddl-auto: create
+  kafka:
+    subscription-topic:
+      name: subscription-topic
+      num-partitions: 3       #не работает
+      replication-factor: 1   #не работает
+    producer:
+      bootstrap-servers: localhost:29092
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8899/eureka
+
+springdoc:
+  paths-to-match: /api/**
+  swagger-ui:
+    enabled: true
+    filter: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
