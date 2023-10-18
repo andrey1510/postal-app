@@ -1,14 +1,3 @@
 spring:
-  application:
-    name: notification-service
-  config:
-    import: optional:configserver:http://localhost:8890
-#  cloud:
-#    config:
-#      uri: http://localhost:8890
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+  profiles:
+    active: dev

@@ -5,11 +5,13 @@ spring:
   application:
     name: gateway-service
   cloud:
+    config:
+      enabled: false
     gateway:
       discovery:    # needed for gateway if Eureka is used
         locator:
           enabled: true
-          #  lower-case-service-uri: true  # needed as Eureka capitalizes letters URI
+        #  lower-case-service-uri: true  # needed as Eureka capitalizes letters URI
           lower-case-service-id: true
       routes:
         - id: postal-service

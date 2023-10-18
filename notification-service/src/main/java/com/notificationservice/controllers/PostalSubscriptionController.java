@@ -35,7 +35,7 @@ public class PostalSubscriptionController {
     }
 
     @PostMapping("unsubscribe")
-    @Operation(description = "Подписаться на получение уведомлений об изменении статуса почтового отправления")
+    @Operation(description = "Отписаться от получения уведомлений об изменении статуса почтового отправления")
     public ResponseEntity<UUID> unsubscribeToUpdates(@RequestBody UUID id) {
 
         subscriptionProducerService.sendMessage(topic, new PostalSubscription(id, false));

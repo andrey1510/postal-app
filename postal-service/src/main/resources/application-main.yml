@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: postal-service
+  config:
+    import: optional:configserver:http://localhost:8890
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

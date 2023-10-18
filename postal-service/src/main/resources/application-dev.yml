@@ -1,12 +1,15 @@
 server:
-  port: 9099
-  forward-headers-strategy: framework   # exposes Swagger under Gateway
+  port: 8885
+  forward-headers-strategy: framework    # exposes Swagger under Gateway
 
 spring:
   application:
-    name: notification-service
+    name: postal-service
+  cloud:
+    config:
+      enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5545/updatesbase
+    url: jdbc:postgresql://localhost:5556/updatesbase
     username: user
     password: password
   jpa:
@@ -16,17 +19,17 @@ spring:
   kafka:
     subscription-topic:
       name: subscription-topic
-    producer:
+    consumer:
       bootstrap-servers: localhost:29092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: postal-updates
       properties:
-        acks: 1
         spring:
           json:
-            add:
-              type:
-                headers: false
+            trusted:
+              packages: '*'
 
 eureka:
   client:

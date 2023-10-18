@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,8 @@ import java.util.UUID;
 public class PostalSubscription {
 
     @Id
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(unique = true, nullable=false)
-    private PostalItem postalItem;
+    @Column(name = "postal_item_id", nullable = false)
+    private UUID postalItemId;
 
     @Column(name = "subscription_status", nullable = false)
     private boolean subscriptionStatus;

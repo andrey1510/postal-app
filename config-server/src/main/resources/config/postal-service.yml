@@ -2,27 +2,17 @@ server:
   port: 8885
   forward-headers-strategy: framework    # exposes Swagger under Gateway
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8899/eureka
-
 spring:
   application:
     name: postal-service
-#  datasource:
-#    url: jdbc:h2:mem:postalbase
-#    username: sa
-#    password:
-#    driverClassName: org.h2.Driver
   datasource:
     url: jdbc:postgresql://localhost:5556/updatesbase
     username: user
     password: password
   jpa:
     show-sql: true
-    console.enabled: true
-    ddl-auto: create
+    hibernate:
+      ddl-auto: create-drop
   kafka:
     subscription-topic:
       name: subscription-topic
@@ -30,17 +20,28 @@ spring:
       bootstrap-servers: localhost:29092
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: postal-updates
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
 
-#  jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
-#    defer-datasource-initialization: true
-#    show-sql: true
-#  h2:
-#    console.enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8899/eureka
 
 springdoc:
   paths-to-match: /api/**
   swagger-ui:
     enabled: true
     filter: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
