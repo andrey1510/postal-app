@@ -19,6 +19,8 @@ spring:
   kafka:
     subscription-topic:
       name: subscription-topic
+    updates-topic:
+      name: updates-topic
     consumer:
       bootstrap-servers: localhost:29092
       auto-offset-reset: earliest
@@ -30,6 +32,17 @@ spring:
           json:
             trusted:
               packages: '*'
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        acks: 1
+        spring:
+          json:
+            add:
+              type:
+                headers: false
 
 eureka:
   client:

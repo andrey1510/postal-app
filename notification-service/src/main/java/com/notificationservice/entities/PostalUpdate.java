@@ -27,7 +27,7 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 @EqualsAndHashCode
 @Entity
 @Builder
-@Table(name = "postal_item")
+@Table(name = "postal_update")
 public class PostalUpdate {
 
     @Id
@@ -44,15 +44,14 @@ public class PostalUpdate {
             description = "Идентификатор почтового отправления.")
     private UUID postalItemId;
 
-    @Column(name = "status", nullable = false)
-    @Schema(minLength = 1, requiredMode = REQUIRED,
-            example = "Москва, ул. Лесная, д. 4, кв. 10",
-            description = "Адрес получателя")
-    private String recipientAddress;
+    @Column(name = "postal_status", updatable = false, nullable = false)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY,
+            example = "Доставлено в почтовое отделение.",
+            description = "Статус почтового отправления.")
+    private String postalStatus;
 
     @Column(name = "timestamp", updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp timestamp;
+    private String timestamp;
 
 
 }

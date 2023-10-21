@@ -11,4 +11,6 @@ public interface PostalHistoryRecordService {
     PostalHistoryRecord createPostalHistory(PostalHistoryRecord postalHistoryRecord);
 
     List<PostalHistoryOfItem> getPostalHistory(UUID postalItemId);
+
+    PostalHistoryRecord getLastPostalHistoryRecord(UUID postalItemId);
 }

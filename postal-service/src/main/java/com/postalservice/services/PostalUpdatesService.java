@@ -1,7 +1,8 @@
 package com.postalservice.services;
 
+import com.postalservice.dto.PostalUpdateDTO;
+import com.postalservice.entities.PostalHistoryRecord;
 import com.postalservice.entities.PostalSubscription;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -13,4 +14,8 @@ public interface PostalUpdatesService {
     PostalSubscription createPostalSubscription(PostalSubscription postalSubscription);
 
     void updateSubscriptionStatusById(Boolean subscriptionStatus, UUID postalItemId);
+
+    void sendUpdates(String topic, PostalUpdateDTO postalUpdateDTO);
+
+    PostalUpdateDTO gatherUpdates(PostalHistoryRecord postalHistoryRecord);
 }

@@ -32,4 +32,11 @@ public class PostalHistoryRecordServiceImpl implements PostalHistoryRecordServic
         return mapToPostalHistoryOfItemDTO(postalHistory);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public PostalHistoryRecord getLastPostalHistoryRecord(UUID postalItemId){
+        return postalHistoryRecordRepository
+                .getPostalHistoryRecordByPostalItem_PostalItemIdOrderByTimestampDesc(postalItemId);
+    }
+
 }

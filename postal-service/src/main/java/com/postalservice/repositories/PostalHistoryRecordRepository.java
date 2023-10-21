@@ -29,4 +29,8 @@ public interface PostalHistoryRecordRepository extends JpaRepository<PostalHisto
                 "r.timestamp desc ")
     List<Object[]> getPostalHistory(@Param("postal_item_id") UUID postalItemId);
 
+
+    PostalHistoryRecord getPostalHistoryRecordByPostalItem_PostalItemIdOrderByTimestampDesc(
+            @Param("postal_item_id") UUID postalItemId);
+
 }

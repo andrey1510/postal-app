@@ -14,10 +14,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostalUpdateDTO {
-
-    @Schema(description = "Идентификатор почтового отправления.")
-    private UUID postalItemId;
+public class PostalUpdateStatusAndTimestampDTO {
 
     @Schema(description = "Статус почтового отправления.")
     private String postalStatus;

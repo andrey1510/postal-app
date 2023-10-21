@@ -5,7 +5,6 @@ import com.postalservice.entities.PostalSubscription;
 import com.postalservice.services.PostalUpdatesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -20,7 +19,9 @@ public class PostalUpdatesController {
 
     private final PostalUpdatesService postalUpdatesService;
 
-    @KafkaListener(topics = TOPIC_NAME, groupId = GROUP_ID, properties = {"spring.json.value.default.type=com.postalservice.dto.PostalSubscriptionDTO"})
+    @KafkaListener(topics = TOPIC_NAME,
+                   groupId = GROUP_ID,
+                   properties = {"spring.json.value.default.type=com.postalservice.dto.PostalSubscriptionDTO"})
     public void createOrUpdateSubscription(PostalSubscriptionDTO postalSubscriptionDTO) {
 
         UUID postalItemId = postalSubscriptionDTO.getPostalItemId();
@@ -33,5 +34,6 @@ public class PostalUpdatesController {
         }
 
     }
+
 
 }

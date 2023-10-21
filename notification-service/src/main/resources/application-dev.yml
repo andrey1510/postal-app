@@ -19,6 +19,20 @@ spring:
   kafka:
     subscription-topic:
       name: subscription-topic
+    updates-topic:
+      name: updates-topic
+    consumer:
+      bootstrap-servers: localhost:29092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: postal-updates
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+
     producer:
       bootstrap-servers: localhost:29092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

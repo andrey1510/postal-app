@@ -1,4 +1,4 @@
-package com.notificationservice.dto;
+package com.postalservice.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

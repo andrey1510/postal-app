@@ -14,11 +14,13 @@ import com.postalservice.services.PostalItemService;
 import com.postalservice.services.PostalHistoryRecordService;
 import com.postalservice.services.PostalOfficeService;
 
+import com.postalservice.services.PostalUpdatesService;
 import io.swagger.v3.oas.annotations.Operation;
 
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -46,6 +48,10 @@ public class PostalDeliveryController {
     private static final String PREVIOUS_OPERATION_IS_GET = "Внесение данной записи невозможно, т.к. предыдущая запись была записью о прибытии в отделение.";
     private static final String PREVIOUS_OPERATION_IS_SEND = "Внесение данной записи невозможно, т.к. предыдущая запись должна быть записью о прибытии отправления в почтовое отделение.";
 
+    @Value("${spring.kafka.updates-topic.name}")
+    private String topic;
+
+    private final PostalUpdatesService postalUpdatesService;
     private final PostalItemService postalItemService;
     private final PostalHistoryRecordService postalHistoryRecordService;
     private final PostalOfficeService postalOfficeService;
@@ -87,6 +93,10 @@ public class PostalDeliveryController {
 
         postalHistoryRecordService.createPostalHistory(postalHistoryRecord);
 
+        if(postalUpdatesService.findById(postalItemId).orElseThrow().isSubscriptionStatus()) {
+            postalUpdatesService.sendUpdates(topic, postalUpdatesService.gatherUpdates(postalHistoryRecord));
+        }
+
         return new ResponseEntity<>(postalHistoryRecord.getPostalStatus(), HttpStatus.OK);
     }
 
@@ -108,6 +118,10 @@ public class PostalDeliveryController {
 
         postalHistoryRecordService.createPostalHistory(postalHistoryRecord);
 
+        if(postalUpdatesService.findById(postalItemId).orElseThrow().isSubscriptionStatus()) {
+            postalUpdatesService.sendUpdates(topic, postalUpdatesService.gatherUpdates(postalHistoryRecord));
+        }
+
         return new ResponseEntity<>(postalHistoryRecord.getPostalStatus(), HttpStatus.OK);
     }
 
@@ -124,6 +138,10 @@ public class PostalDeliveryController {
         PostalHistoryRecord postalHistoryRecord = new PostalHistoryRecord(PostalStatus.RECEIVED, postalItem);
 
         postalHistoryRecordService.createPostalHistory(postalHistoryRecord);
+
+        if(postalUpdatesService.findById(postalItemId).orElseThrow().isSubscriptionStatus()) {
+            postalUpdatesService.sendUpdates(topic, postalUpdatesService.gatherUpdates(postalHistoryRecord));
+        }
 
         return new ResponseEntity<>(postalHistoryRecord.getPostalStatus(), HttpStatus.OK);
     }
