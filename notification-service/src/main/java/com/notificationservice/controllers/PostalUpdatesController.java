@@ -25,17 +25,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PostalUpdatesController {
 
-    private static final String UPDATES_TOPIC_NAME = "${spring.kafka.updates-topic.name}";
-    private static final String SUBSCRIPTION_TOPIC_NAME = "${spring.kafka.subscription-topic.name}";
-    private static final String GROUP_ID = "${spring.kafka.consumer.group-id}";
-
     private final PostalUpdatesService postalUpdatesService;
 
     @PostMapping("subscribe")
     @Operation(description = "Подписаться на получение уведомлений об изменении статуса почтового отправления")
     public ResponseEntity<UUID> subscribeToUpdates(@RequestBody UUID id) {
 
-        postalUpdatesService.sendMessage(SUBSCRIPTION_TOPIC_NAME, new PostalSubscription(id, true));
+        postalUpdatesService.sendMessage("${spring.kafka.subscription-topic.name}", new PostalSubscription(id, true));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -44,13 +40,13 @@ public class PostalUpdatesController {
     @Operation(description = "Отписаться от получения уведомлений об изменении статуса почтового отправления")
     public ResponseEntity<UUID> unsubscribeToUpdates(@RequestBody UUID id) {
 
-        postalUpdatesService.sendMessage(SUBSCRIPTION_TOPIC_NAME, new PostalSubscription(id, false));
+        postalUpdatesService.sendMessage("${spring.kafka.subscription-topic.name}", new PostalSubscription(id, false));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @KafkaListener(topics = UPDATES_TOPIC_NAME,
-                   groupId = GROUP_ID,
+    @KafkaListener(topics = "${spring.kafka.updates-topic.name}",
+                   groupId = "${spring.kafka.consumer.group-id}",
                    properties = {"spring.json.value.default.type=com.notificationservice.dto.PostalUpdateDTO"})
     public void createUpdate(PostalUpdateDTO postalUpdateDTO) {
 
