@@ -48,7 +48,7 @@ public class PostalUpdatesServiceImpl implements PostalUpdatesService {
         PostalUpdateDTO postalUpdateDTO = new PostalUpdateDTO();
 
         postalUpdateDTO.setPostalItemId(postalHistoryRecord.getPostalItem().getPostalItemId());
-        postalUpdateDTO.setTimestamp(String.valueOf(postalHistoryRecord.getTimestamp()));
+        postalUpdateDTO.setTimestamp(postalHistoryRecord.getTimestamp());
         postalUpdateDTO.setPostalStatus(String.valueOf(postalHistoryRecord.getPostalStatus()));
 
         return postalUpdateDTO;

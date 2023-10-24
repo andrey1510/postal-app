@@ -18,8 +18,6 @@ public interface PostalUpdateMapper {
 
     PostalUpdateMapper INSTANCE = Mappers.getMapper(PostalUpdateMapper.class);
 
-    //ToDo
-
     @Mapping(source = "postalItemId", target = "postalItemId")
     @Mapping(source = "postalStatus", target = "postalStatus")
     @Mapping(source = "timestamp", target = "timestamp")

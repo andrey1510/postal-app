@@ -14,7 +14,7 @@ public interface PostalUpdatesService {
 
     PostalUpdate createPostalUpdate(PostalUpdate postalUpdate);
 
-//    PostalUpdate getLastPostalUpdateByPostalItemId(UUID postalItemId);
+    PostalUpdate getLastPostalUpdate(UUID postalItemId);
 
     List<PostalUpdate> getAllPostalUpdatesByPostalItemId(UUID postalItemId);
 }

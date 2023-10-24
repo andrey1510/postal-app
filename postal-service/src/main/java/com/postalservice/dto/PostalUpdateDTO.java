@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +24,6 @@ public class PostalUpdateDTO {
     private String postalStatus;
 
     @Schema(description = "Время внесения записи.")
-    private String timestamp;
+    private Timestamp timestamp;
 
 }

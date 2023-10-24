@@ -1,0 +1,85 @@
+networks:
+  kafka-network:
+    driver: bridge
+
+services:
+
+  postal-db:
+    container_name: postal-database
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postalbase
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5556:5432
+    restart: unless-stopped
+
+  packinglist-db:
+    container_name: packinglist-database
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=packinglistbase
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5544:5432
+    restart: unless-stopped
+
+  notification-updates-db:
+    container_name: notification-updates-database
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=updatesbase
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5545:5432
+    restart: unless-stopped
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+    networks:
+      - kafka-network
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      KAFKA_JMX_PORT: 9997
+    ports:
+      - 22181:2181
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:latest
+    networks:
+      - kafka-network
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+      - 19997:19997
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 19997
+      KAFKA_JMX_HOSTNAME: localhost
+
+  kafka-ui:
+    container_name: kafka_ui
+    image: provectuslabs/kafka-ui:latest
+    networks:
+      - kafka-network
+    ports:
+      - 18080:8080
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: postal
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_METRICS_PORT: 19997

@@ -33,25 +33,16 @@ public class PostalUpdate {
     @Id
     @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY,
-            example = "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            description = "Идентификатор записи обновления.")
     private UUID id;
 
     @Column(name = "postal_item_id", updatable = false, nullable = false)
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY,
-            example = "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            description = "Идентификатор почтового отправления.")
     private UUID postalItemId;
 
     @Column(name = "postal_status", updatable = false, nullable = false)
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY,
-            example = "Доставлено в почтовое отделение.",
-            description = "Статус почтового отправления.")
     private String postalStatus;
 
     @Column(name = "timestamp", updatable = false, nullable = false)
-    private String timestamp;
+    private Timestamp timestamp;
 
 
 }

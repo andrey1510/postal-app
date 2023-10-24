@@ -9,7 +9,7 @@ spring:
     config:
       enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5556/updatesbase
+    url: jdbc:postgresql://localhost:5556/postalbase
     username: user
     password: password
   jpa:

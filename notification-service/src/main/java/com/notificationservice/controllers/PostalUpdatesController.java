@@ -57,14 +57,14 @@ public class PostalUpdatesController {
         postalUpdatesService.createPostalUpdate(PostalUpdateMapper.INSTANCE.dtoToEntity(postalUpdateDTO));
         
     }
-//
-//    @GetMapping("last_update/{postal_item_id}")
-//    @Operation(description = "Найти последнее уведомление по идентификатору почтового отправления.")
-//    public PostalUpdateStatusAndTimestampDTO getLastUpdate(@PathVariable("postal_item_id") UUID postalItemId) {
-//        return PostalUpdateMapper.INSTANCE.entityToDTO(
-//                postalUpdatesService.getLastPostalUpdateByPostalItemId(postalItemId)
-//        );
-//    }
+
+    @GetMapping("last_update/{postal_item_id}")
+    @Operation(description = "Найти последнее уведомление по идентификатору почтового отправления.")
+    public PostalUpdateStatusAndTimestampDTO getLastUpdate(@PathVariable("postal_item_id") UUID postalItemId) {
+        return PostalUpdateMapper.INSTANCE.entityToDTO(
+                postalUpdatesService.getLastPostalUpdate(postalItemId)
+        );
+    }
 
     @GetMapping("all_updates/{postal_item_id}")
     @Operation(description = "Найти все уведомления по идентификатору почтового отправления.")
