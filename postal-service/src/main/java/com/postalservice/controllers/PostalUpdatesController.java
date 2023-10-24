@@ -4,7 +4,6 @@ import com.postalservice.dto.PostalSubscriptionDTO;
 import com.postalservice.entities.PostalSubscription;
 import com.postalservice.services.PostalUpdatesService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.RestController;
 

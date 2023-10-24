@@ -7,6 +7,7 @@ import com.notificationservice.mappers.PostalUpdateMapper;
 import com.notificationservice.services.PostalUpdatesService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -25,13 +26,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PostalUpdatesController {
 
+    @Value("${spring.kafka.subscription-topic.name}")
+    private String topic;
+
     private final PostalUpdatesService postalUpdatesService;
 
     @PostMapping("subscribe")
     @Operation(description = "Подписаться на получение уведомлений об изменении статуса почтового отправления")
     public ResponseEntity<UUID> subscribeToUpdates(@RequestBody UUID id) {
 
-        postalUpdatesService.sendMessage("${spring.kafka.subscription-topic.name}", new PostalSubscription(id, true));
+        postalUpdatesService.sendMessage(topic, new PostalSubscription(id, true));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -40,7 +44,7 @@ public class PostalUpdatesController {
     @Operation(description = "Отписаться от получения уведомлений об изменении статуса почтового отправления")
     public ResponseEntity<UUID> unsubscribeToUpdates(@RequestBody UUID id) {
 
-        postalUpdatesService.sendMessage("${spring.kafka.subscription-topic.name}", new PostalSubscription(id, false));
+        postalUpdatesService.sendMessage(topic, new PostalSubscription(id, false));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -53,14 +57,14 @@ public class PostalUpdatesController {
         postalUpdatesService.createPostalUpdate(PostalUpdateMapper.INSTANCE.dtoToEntity(postalUpdateDTO));
         
     }
-
-    @GetMapping("last_update/{postal_item_id}")
-    @Operation(description = "Найти последнее уведомление по идентификатору почтового отправления.")
-    public PostalUpdateStatusAndTimestampDTO getLastUpdate(@PathVariable("postal_item_id") UUID postalItemId) {
-        return PostalUpdateMapper.INSTANCE.entityToDTO(
-                postalUpdatesService.getLastPostalUpdateByPostalItemId(postalItemId)
-        );
-    }
+//
+//    @GetMapping("last_update/{postal_item_id}")
+//    @Operation(description = "Найти последнее уведомление по идентификатору почтового отправления.")
+//    public PostalUpdateStatusAndTimestampDTO getLastUpdate(@PathVariable("postal_item_id") UUID postalItemId) {
+//        return PostalUpdateMapper.INSTANCE.entityToDTO(
+//                postalUpdatesService.getLastPostalUpdateByPostalItemId(postalItemId)
+//        );
+//    }
 
     @GetMapping("all_updates/{postal_item_id}")
     @Operation(description = "Найти все уведомления по идентификатору почтового отправления.")

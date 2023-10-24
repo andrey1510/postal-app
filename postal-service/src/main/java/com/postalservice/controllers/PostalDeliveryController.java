@@ -5,6 +5,7 @@ import com.postalservice.dto.PostalItemInfo;
 import com.postalservice.entities.PostalHistoryRecord;
 import com.postalservice.entities.PostalItem;
 import com.postalservice.entities.PostalOffice;
+import com.postalservice.entities.PostalSubscription;
 import com.postalservice.enums.PostalStatus;
 import com.postalservice.exceptions.PostalItemAlreadyReceivedException;
 import com.postalservice.exceptions.EntityNotFoundException;
@@ -93,7 +94,7 @@ public class PostalDeliveryController {
 
         postalHistoryRecordService.createPostalHistory(postalHistoryRecord);
 
-        if(postalUpdatesService.findById(postalItemId).orElseThrow().isSubscriptionStatus()) {
+        if(postalUpdatesService.findById(postalItemId).orElse(new PostalSubscription()).isSubscriptionStatus()) {
             postalUpdatesService.sendUpdates(topic, postalUpdatesService.gatherUpdates(postalHistoryRecord));
         }
 
@@ -118,7 +119,7 @@ public class PostalDeliveryController {
 
         postalHistoryRecordService.createPostalHistory(postalHistoryRecord);
 
-        if(postalUpdatesService.findById(postalItemId).orElseThrow().isSubscriptionStatus()) {
+        if(postalUpdatesService.findById(postalItemId).orElse(new PostalSubscription()).isSubscriptionStatus()) {
             postalUpdatesService.sendUpdates(topic, postalUpdatesService.gatherUpdates(postalHistoryRecord));
         }
 
@@ -139,7 +140,7 @@ public class PostalDeliveryController {
 
         postalHistoryRecordService.createPostalHistory(postalHistoryRecord);
 
-        if(postalUpdatesService.findById(postalItemId).orElseThrow().isSubscriptionStatus()) {
+        if(postalUpdatesService.findById(postalItemId).orElse(new PostalSubscription()).isSubscriptionStatus()) {
             postalUpdatesService.sendUpdates(topic, postalUpdatesService.gatherUpdates(postalHistoryRecord));
         }
 

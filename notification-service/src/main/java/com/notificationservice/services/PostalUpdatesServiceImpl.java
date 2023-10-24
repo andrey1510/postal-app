@@ -31,11 +31,12 @@ public class PostalUpdatesServiceImpl implements PostalUpdatesService {
         return postalUpdatesRepository.save(postalUpdate);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public PostalUpdate getLastPostalUpdateByPostalItemId(UUID postalItemId) {
-        return postalUpdatesRepository.getPostalUpdateByPostalItemIdOrderByTimestampDesc(postalItemId);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public PostalUpdate getLastPostalUpdateByPostalItemId(UUID postalItemId) {
+//        return postalUpdatesRepository.getLastUpdate(postalItemId);
+//       // return postalUpdatesRepository.getPostalUpdateByPostalItemIdOrderByTimestampDesc(postalItemId);
+//    }
 
     @Override
     @Transactional(readOnly = true)
