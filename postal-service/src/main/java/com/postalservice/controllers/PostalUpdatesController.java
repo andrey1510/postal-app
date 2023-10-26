@@ -5,6 +5,7 @@ import com.postalservice.entities.PostalSubscription;
 import com.postalservice.services.PostalUpdatesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class PostalUpdatesController {
     private final PostalUpdatesService postalUpdatesService;
 
     @KafkaListener(topics = "${spring.kafka.subscription-topic.name}",
+//                   concurrency = "2",
                    groupId = "${spring.kafka.consumer.group-id}",
                    properties = {"spring.json.value.default.type=com.postalservice.dto.PostalSubscriptionDTO"})
     public void createOrUpdateSubscription(PostalSubscriptionDTO postalSubscriptionDTO) {
