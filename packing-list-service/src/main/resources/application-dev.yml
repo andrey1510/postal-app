@@ -4,12 +4,17 @@ server:
 
 eureka:
   client:
+    healthcheck:
+      enabled: true
     serviceUrl:
       defaultZone: http://localhost:8899/eureka
 
 spring:
   application:
     name: packing-list-service
+  cloud:
+    config:
+      enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5544/packinglistbase
     username: user

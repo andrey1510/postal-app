@@ -7,6 +7,14 @@ spring:
   cloud:
     config:
       enabled: false
+    loadbalancer:
+      enabled: true
+      configurations: health-check
+      health-check:
+        interval: 10
+        refetch-instances: true
+        refetch-instances-interval: 20
+
     gateway:
       discovery:    # needed for gateway if Eureka is used
         locator:
@@ -29,5 +37,7 @@ spring:
 
 eureka:
   client:
+    healthcheck:
+      enabled: true
     serviceUrl:
       defaultZone: http://localhost:8899/eureka
